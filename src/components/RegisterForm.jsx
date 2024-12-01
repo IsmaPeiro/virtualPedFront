@@ -28,7 +28,7 @@ const RegisterForm = () => {
                 <div>
                     <label htmlFor="nickname">Nickname:</label>
                     <input
-                        type="text"
+                        type="text".
                         id="nickname"
                         name="nickname"
                         value={formData.nickname}
