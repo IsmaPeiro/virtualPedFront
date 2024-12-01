@@ -17,7 +17,7 @@ const RegisterForm = () => {
             const response = await register(formData);
             setMessage('Usuario registrado con éxito. Ahora puedes iniciar sesión.');
         } catch (error) {
-            setMessage(error || 'Error desconocido');
+            setMessage(error || 'Error desconocido.');
         }
     };
 
