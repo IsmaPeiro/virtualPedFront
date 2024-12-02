@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode'; // Para decodificar el token y obtener el rol
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import PetsPage from './components/PetsPage';
 import AdminPage from './components/AdminPage';
 import LoginForm from './components/LoginForm';
+import PetDetailsPage from './components/PetDetailsPage'; // Importar la nueva página
 
 const App = () => {
     const navigate = useNavigate();
+    const location = useLocation(); // Usar useLocation para obtener la ruta actual
 
     const handleLoginSuccess = (token, role) => {
-        // Guardamos el token en localStorage
         localStorage.setItem('token', token);
         if (role === 'ADMIN') {
-            navigate('/admin'); // Redirigir a la página de administración
+            navigate('/admin');
         } else {
-            navigate('/pets'); // Redirigir a la página de mascotas
+            navigate('/pets');
         }
     };
 
@@ -22,13 +23,19 @@ const App = () => {
         const savedToken = localStorage.getItem('token');
         if (savedToken) {
             const decodedToken = jwtDecode(savedToken);
-            if (decodedToken.role === 'ADMIN') {
-                navigate('/admin'); // Redirigir a Admin si el rol es ADMIN
-            } else {
-                navigate('/pets'); // Redirigir a Pets si el rol es USER
+            const isAdmin = decodedToken.role === 'ADMIN';
+            const isDetailsPage = location.pathname.startsWith('/pet-details'); // Comprobamos si estamos en la ruta de detalles
+
+            // No redirigimos si ya estamos en la página de detalles
+            if (!isDetailsPage) {
+                if (isAdmin) {
+                    navigate('/admin');
+                } else {
+                    navigate('/pets');
+                }
             }
         }
-    }, [navigate]);
+    }, [navigate, location.pathname]); // Dependencia de location.pathname para que solo se ejecute cuando cambie la ruta
 
     return (
         <div>
@@ -36,6 +43,7 @@ const App = () => {
                 <Route path="/" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
                 <Route path="/pets" element={<PetsPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/pet-details/:petName" element={<PetDetailsPage />} /> {/* Nueva ruta */}
             </Routes>
         </div>
     );

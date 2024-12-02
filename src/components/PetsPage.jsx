@@ -40,10 +40,10 @@ const PetsPage = () => {
         const fetchEnums = async () => {
             try {
                 const colorResponse = await axios.get('http://localhost:8080/enum/petColors', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 setPetColors(colorResponse.data);
 
                 const typeResponse = await axios.get('http://localhost:8080/enum/petTypes', {
@@ -60,6 +60,12 @@ const PetsPage = () => {
 
         fetchPets();
         fetchEnums();
+
+        // Actualizar las mascotas cada 120000 ms (120 segundos)
+        const interval = setInterval(fetchPets, 120000);
+
+        // Limpiar el intervalo cuando el componente se desmonte
+        return () => clearInterval(interval);
     }, [navigate]);
 
     const handleLogout = () => {
@@ -100,17 +106,17 @@ const PetsPage = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-    
+
             // Obtener la lista completa de mascotas después de la creación
             const response = await axios.get('http://localhost:8080/pet/getAllUserPets', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-    
+
             // Actualizar el estado con las mascotas completas, incluyendo la recién creada
             setPets(response.data);
-    
+
             // Limpiar el formulario de la nueva mascota
             setNewPet({ petName: '', type: 'BUBBLE_DRAGON', color: 'YELLOW' });
         } catch (err) {
@@ -159,16 +165,20 @@ const PetsPage = () => {
             {/* Mostrar las mascotas */}
             <ul>
                 {pets.map(pet => (
-                    <li key={pet.name}> {/* Usamos pet.name como la key única */}
+                    <li key={pet.name}>
                         <strong>Detalles de la mascota:</strong>
                         <ul>
                             {Object.entries(pet).map(([key, value]) => (
                                 key !== 'id' && key !== 'owner' ? (
-                                    <li key={key}><strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {value}</li>
+                                    <li key={key}>
+                                        <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> 
+                                        {Array.isArray(value) ? value.join(', ') : value}
+                                    </li>
                                 ) : null
                             ))}
                         </ul>
-                        {/* Botón de eliminar */}
+                        {/* Botón para redirigir a los detalles de la mascota */}
+                        <button onClick={() => navigate(`/pet-details/${pet.name}`)}>Ver Detalles</button>
                         <button onClick={() => handleDeletePet(pet.name)}>Eliminar</button>
                     </li>
                 ))}
