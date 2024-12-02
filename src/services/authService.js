@@ -42,7 +42,7 @@ export const login = async (loginData) => {
  */
 export const register = async (userData) => {
     try {
-        const response = await axios.post(`${API_URL}/register`, userData);
+        const response = await axios.post(`${API_URL}/auth/register`, userData);
         return response.data; // Devuelve los datos de registro
     } catch (error) {
         throw error.response?.data?.message || 'Error al conectar con el servidor';
