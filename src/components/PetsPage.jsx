@@ -159,7 +159,7 @@ const PetsPage = () => {
             {/* Mostrar las mascotas */}
             <ul>
                 {pets.map(pet => (
-                    <li key={pet.id}>
+                    <li key={pet.name}> {/* Usamos pet.name como la key única */}
                         <strong>Detalles de la mascota:</strong>
                         <ul>
                             {Object.entries(pet).map(([key, value]) => (
