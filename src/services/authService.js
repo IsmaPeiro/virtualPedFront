@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL de tu backend
-const API_URL = 'http://localhost:8080';  // Cambia esto si el puerto de tu backend es diferente
+const API_URL = 'http://localhost:8080';
 
 /**
  * Login de usuario.
@@ -12,21 +12,18 @@ const API_URL = 'http://localhost:8080';  // Cambia esto si el puerto de tu back
 // Función para hacer login
 export const login = async (loginData) => {
     try {
-        // Realizamos la solicitud POST con los datos de login
         const response = await axios.post(`${API_URL}/auth/login`, loginData, {
             headers: {
                 'Content-Type': 'application/json'
             }
         });
 
-        // Si la respuesta tiene el token, lo devolvemos
         if (response.data) {
-            return { token: response.data };  // El backend debería devolver solo el token
+            return { token: response.data };
         } else {
             throw new Error("Token no recibido.");
         }
     } catch (error) {
-        // Manejo de errores
         if (error.response && error.response.data) {
             throw new Error(error.response.data.message || "Error de autenticación");
         } else {
@@ -45,6 +42,7 @@ export const register = async (userData) => {
         const response = await axios.post(`${API_URL}/auth/register`, userData);
         return response.data; // Devuelve los datos de registro
     } catch (error) {
-        throw error.response?.data?.message || 'Error al conectar con el servidor';
+        // Asegúrate de envolver el mensaje de error en un objeto Error
+        throw new Error(error.response?.data?.message || 'Error al conectar con el servidor');
     }
 };

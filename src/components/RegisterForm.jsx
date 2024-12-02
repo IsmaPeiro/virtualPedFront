@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import { register } from '../services/authService';
 
 const RegisterForm = () => {
@@ -17,7 +17,8 @@ const RegisterForm = () => {
             const response = await register(formData);
             setMessage('Usuario registrado con éxito. Ahora puedes iniciar sesión.');
         } catch (error) {
-            setMessage(error || 'Error desconocido.');
+            // Mostrar mensaje de error en caso de fallo
+            setMessage(error.message || 'Error desconocido');
         }
     };
 
@@ -55,3 +56,4 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
+*/

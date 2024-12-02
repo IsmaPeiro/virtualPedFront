@@ -1,48 +1,58 @@
 import React, { useState } from 'react';
-import { login } from '../services/authService';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { login, register } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ onLoginSuccess }) => {
     const [formData, setFormData] = useState({ nickname: '', password: '' });
     const [message, setMessage] = useState('');
-    const navigate = useNavigate(); // Inicializa el hook navigate
+    const [isRegistering, setIsRegistering] = useState(false); // Estado para alternar entre login y registro
+    const navigate = useNavigate();
 
-    // Maneja los cambios en los campos del formulario
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // Maneja el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // Intentar realizar el login
-            const response = await login(formData);
+            let response;
+            if (isRegistering) {
+                // Si está en modo registro, registramos al usuario
+                response = await register(formData);
+                setMessage('Usuario registrado con éxito. Ahora puedes iniciar sesión.');
 
-            // Verificar si se recibió el token en la respuesta
+                // Hacer login automáticamente después del registro
+                response = await login(formData);
+            } else {
+                // Si está en modo login, intentamos hacer login
+                response = await login(formData);
+            }
+
             if (response && response.token) {
-                // Guardar el token en localStorage
+                // Si se recibe el token, lo almacenamos y redirigimos
                 localStorage.setItem('token', response.token);
-
-                // Llamar a onLoginSuccess pasando el token (si es necesario)
                 onLoginSuccess(response.token);
-
-                // Redirigir al usuario a la página de mascotas usando React Router
-                navigate('/pets'); // Redirigir a /pets (sin recargar la página)
+                navigate('/pets');
             } else {
                 setMessage('Token no recibido.');
             }
         } catch (error) {
-            // Mostrar mensaje de error en caso de fallo
-            setMessage(error.message || 'Error desconocido');
+            // Comprobamos si el error es una respuesta de backend (Axios, Fetch, etc.)
+            if (error) {
+                // Si la respuesta contiene un mensaje del backend
+                setMessage(error.message || 'Error desconocido');
+            } else {
+                // Si el error no tiene respuesta del backend
+                setMessage('Error desconocido');
+            }
         }
     };
 
     return (
         <div>
-            <h1>Iniciar Sesión</h1>
+            <h1>{isRegistering ? 'Registro de Usuario' : 'Iniciar Sesión'}</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="nickname">Nickname:</label>
@@ -66,9 +76,22 @@ const LoginForm = ({ onLoginSuccess }) => {
                         required
                     />
                 </div>
-                <button type="submit">Iniciar Sesión</button>
+                <button type="submit">{isRegistering ? 'Registrar' : 'Iniciar Sesión'}</button>
             </form>
             {message && <p>{message}</p>}
+
+            {/* Siempre mostrar el botón de cambio de formulario */}
+            <div>
+                {isRegistering ? (
+                    <button onClick={() => setIsRegistering(false)}>
+                        Ya tengo cuenta. Iniciar sesión
+                    </button>
+                ) : (
+                    <button onClick={() => setIsRegistering(true)}>
+                        ¿No tienes cuenta? Regístrate
+                    </button>
+                )}
+            </div>
         </div>
     );
 };
