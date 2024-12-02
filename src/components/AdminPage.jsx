@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode'; // Asegúrate de importar jwt-decode correctamente
 
-const PetsPage = () => {
-    const [pets, setPets] = useState([]);
+const AdminPage = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -15,22 +14,17 @@ const PetsPage = () => {
             return;
         }
 
-        const fetchPets = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/pet/getAllUserPets', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
-                setPets(response.data); // Guardar las mascotas recibidas
-            } catch (err) {
-                console.error(err);
-                setError('No se pudieron cargar las mascotas');
+        // Decodificar el token para verificar si es admin
+        try {
+            const decodedToken = jwtDecode(token);
+            if (decodedToken.role !== 'ADMIN') {
+                setError('No tiene permisos de administrador');
+                navigate('/pets'); // Redirigir a la página de mascotas si no es admin
             }
-        };
-
-        fetchPets();
+        } catch (err) {
+            setError('Token inválido');
+            navigate('/'); // Redirigir al login si el token es inválido
+        }
     }, [navigate]);
 
     const handleLogout = () => {
@@ -43,18 +37,16 @@ const PetsPage = () => {
 
     return (
         <div>
-            <h1>Mis Mascotas</h1>
+            <h1>Página de Administrador</h1>
             {error && <p>{error}</p>}
-            <ul>
-                {pets.map(pet => (
-                    <li key={pet.id}>{pet.name}</li>
-                ))}
-            </ul>
-
+            {/* Aquí irán las opciones para el administrador */}
+            <div>
+                <p>Aquí se podrán mostrar las opciones para el administrador.</p>
+            </div>
             {/* Botón de logout */}
             <button onClick={handleLogout}>Cerrar sesión</button>
         </div>
     );
 };
 
-export default PetsPage;
+export default AdminPage;
