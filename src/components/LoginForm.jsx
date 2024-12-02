@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { login, register } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
-import { login, register } from '../services/authService';
-import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ onLoginSuccess }) => {
     const [formData, setFormData] = useState({ nickname: '', password: '' });
     const [message, setMessage] = useState('');
-    const [isRegistering, setIsRegistering] = useState(false); // Estado para alternar entre login y registro
-    const navigate = useNavigate();
     const [isRegistering, setIsRegistering] = useState(false); // Estado para alternar entre login y registro
     const navigate = useNavigate();
 
@@ -36,10 +32,8 @@ const LoginForm = ({ onLoginSuccess }) => {
 
             if (response && response.token) {
                 // Si se recibe el token, lo almacenamos y redirigimos
-                // Si se recibe el token, lo almacenamos y redirigimos
                 localStorage.setItem('token', response.token);
                 onLoginSuccess(response.token);
-                navigate('/pets');
                 navigate('/pets');
             } else {
                 setMessage('Token no recibido.');
@@ -58,7 +52,6 @@ const LoginForm = ({ onLoginSuccess }) => {
 
     return (
         <div>
-            <h1>{isRegistering ? 'Registro de Usuario' : 'Iniciar Sesión'}</h1>
             <h1>{isRegistering ? 'Registro de Usuario' : 'Iniciar Sesión'}</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -83,7 +76,6 @@ const LoginForm = ({ onLoginSuccess }) => {
                         required
                     />
                 </div>
-                <button type="submit">{isRegistering ? 'Registrar' : 'Iniciar Sesión'}</button>
                 <button type="submit">{isRegistering ? 'Registrar' : 'Iniciar Sesión'}</button>
             </form>
             {message && <p>{message}</p>}
