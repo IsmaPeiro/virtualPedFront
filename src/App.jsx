@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
-import RegisterForm from './components/RegisterForm';
 import PetsPage from './components/PetsPage';
 
 const App = () => {
@@ -19,10 +18,7 @@ const App = () => {
                 <Route
                     path="/"
                     element={
-                        <>
-                            <LoginForm onLoginSuccess={handleLoginSuccess} />
-                            <RegisterForm />
-                        </>
+                        <LoginForm onLoginSuccess={handleLoginSuccess} />
                     }
                 />
                 <Route path="/pets" element={<PetsPage token={token} />} />
