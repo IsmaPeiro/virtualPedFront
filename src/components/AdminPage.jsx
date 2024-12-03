@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import './AdminPage.css'; // Importamos los estilos CSS
 
 const AdminPage = () => {
     const [users, setUsers] = useState([]);
     const [pets, setPets] = useState([]);
     const [error, setError] = useState('');
+    const [showUsers, setShowUsers] = useState(false); // Controlar la visibilidad de usuarios
+    const [showPets, setShowPets] = useState(false); // Controlar la visibilidad de mascotas
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,137 +20,131 @@ const AdminPage = () => {
             return;
         }
 
-        // Decodificar el token para verificar si es admin
         try {
             const decodedToken = jwtDecode(token);
             if (decodedToken.role !== 'ADMIN') {
                 setError('No tiene permisos de administrador');
-                navigate('/pets'); // Redirigir a la página de mascotas si no es admin
+                navigate('/pets');
             }
         } catch (err) {
             setError('Token inválido');
-            navigate('/'); // Redirigir al login si el token es inválido
+            navigate('/');
         }
     }, [navigate]);
 
-    // Función para obtener todos los usuarios
     const fetchAllUsers = async () => {
         const token = localStorage.getItem('token');
         try {
             const response = await axios.get('http://localhost:8080/admin/getAllUsers', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` },
             });
-
-            // Filtrar los usuarios con rol diferente a ADMIN
             const filteredUsers = response.data.filter(user => user.role !== 'ADMIN');
             setUsers(filteredUsers);
+            setShowUsers(true); // Mostrar usuarios
         } catch (err) {
             setError('No se pudieron cargar los usuarios');
         }
     };
 
-    // Función para obtener todas las mascotas
     const fetchAllPets = async () => {
         const token = localStorage.getItem('token');
         try {
             const response = await axios.get('http://localhost:8080/admin/getAllPets', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` },
             });
             setPets(response.data);
+            setShowPets(true); // Mostrar mascotas
         } catch (err) {
             setError('No se pudieron cargar las mascotas');
         }
     };
 
-    // Función para eliminar un usuario
     const handleDeleteUser = async (nickname) => {
         const token = localStorage.getItem('token');
         try {
             await axios.delete(`http://localhost:8080/admin/deleteUser?nickname=${nickname}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` },
             });
-    
-            // Eliminar el usuario de la lista en el frontend
             setUsers(users.filter(user => user.nickname !== nickname));
         } catch (err) {
             setError('No se pudo eliminar el usuario');
         }
     };
 
-    // Función para eliminar una mascota
     const handleDeletePet = async (nickname, petName) => {
         const token = localStorage.getItem('token');
         try {
             await axios.post('http://localhost:8080/admin/deletePet', null, {
-                params: {
-                    nickname: nickname,
-                    petName: petName,
-                },
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                params: { nickname, petName },
+                headers: { Authorization: `Bearer ${token}` },
             });
-
-            // Eliminar la mascota de la lista en el frontend
             setPets(pets.filter(pet => pet.name !== petName));
         } catch (err) {
             setError('No se pudo eliminar la mascota');
         }
     };
 
-    // Función de logout
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
     };
 
     return (
-        <div>
-            <h1>Página de Administrador</h1>
-            {error && <p>{error}</p>}
+        <div className="admin-container">
+            <h1 className="admin-title">Página de Administración</h1>
+            {error && <p className="admin-error">{error}</p>}
 
-            {/* Botones para ver usuarios y mascotas */}
-            <div>
-                <button onClick={fetchAllUsers}>Ver todos los usuarios</button>
-                <button onClick={fetchAllPets}>Ver todas las mascotas</button>
-                <button onClick={handleLogout}>Cerrar sesión</button>
+            <div className="admin-buttons">
+                <button className="btn" onClick={fetchAllUsers} disabled={showUsers}>Ver todos los usuarios</button>
+                <button className="btn" onClick={fetchAllPets} disabled={showPets}>Ver todas las mascotas</button>
+                <button className="btn" onClick={handleLogout}>Cerrar sesión</button>
             </div>
 
-            {/* Mostrar lista de usuarios */}
-            {users.length > 0 && (
-                <div>
-                    <h2>Usuarios</h2>
-                    <ul>
-                        {users.map((user) => (
-                            <li key={user.id}>
+            {showUsers && (
+                <div className="admin-section">
+                    <h2 className="admin-subtitle">Usuarios</h2>
+                    <button className="btn close-btn" onClick={() => setShowUsers(false)}>Cerrar usuarios</button>
+                    <ul className="admin-list">
+                        {users.map(user => (
+                            <li key={user.nickname} className="admin-list-item">
                                 {user.nickname}
-                                <button onClick={() => handleDeleteUser(user.nickname)}>Eliminar</button>
+                                <button className="btn small-btn" onClick={() => handleDeleteUser(user.nickname)}>Eliminar</button>
                             </li>
                         ))}
                     </ul>
                 </div>
             )}
 
-            {/* Mostrar lista de mascotas */}
-            {pets.length > 0 && (
-                <div>
-                    <h2>Mascotas</h2>
-                    <ul>
-                        {pets.map((pet) => (
-                            <li key={pet.id}>
-                                {pet.name} (Propietario: {pet.owner}) {/* Mostrar el propietario al lado del nombre de la mascota */}
-                                <button onClick={() => handleDeletePet(pet.owner, pet.name)}>Eliminar</button>
+            {showPets && (
+                <div className="admin-section">
+                <h2 className="admin-subtitle">Mascotas</h2>
+                <button className="btn close-btn" onClick={() => setShowPets(false)}>Cerrar mascotas</button>
+                <ul className="admin-list">
+                    {pets.map(pet => {
+                        // Construimos el nombre del archivo basado en el tipo, color y estado de ánimo
+                        const imageFileName = `${pet.type}_${pet.color}_${pet.petMood}.png`.toUpperCase();
+                        const imageUrl = `/assets/pets/${imageFileName}`;
+        
+                        return (
+                            <li key={pet.name} className="admin-list-item">
+                                <div className="admin-pet-info">
+                                    <img
+                                        src={imageUrl}
+                                        alt={`${pet.type} - ${pet.name}`}
+                                        className="pet-thumbnail"
+                                        onError={(e) => {
+                                            e.target.src = '/assets/pets/default.png'; // Imagen de respaldo
+                                        }}
+                                    />
+                                    <span>{pet.name} (Propietario: {pet.owner})</span>
+                                </div>
+                                <button className="btn small-btn" onClick={() => handleDeletePet(pet.owner, pet.name)}>Eliminar</button>
                             </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+                        );
+                    })}
+                </ul>
+            </div>
+        )}
         </div>
     );
 };

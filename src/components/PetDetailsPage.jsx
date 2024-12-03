@@ -26,33 +26,42 @@ const PetDetailsPage = () => {
         handleUpdateAccessory,
     } = usePetActions(petName, setPetDetails, setError, setShowModal);
 
-    useEffect(() => {
-        const fetchLocationsAndAccessories = async () => {
-            const token = localStorage.getItem('token');
-            try {
-                const locationsResponse = await axios.get(
-                    'http://localhost:8080/enum/petLocations',
-                    { headers: { Authorization: `Bearer ${token}` } }
-                );
-                setLocations(locationsResponse.data);
+    const [dataLoaded, setDataLoaded] = useState(false); // Nuevo estado para verificar si ya se cargaron los datos
 
-                const accessoriesResponse = await axios.get(
-                    'http://localhost:8080/enum/petAccessories',
-                    { headers: { Authorization: `Bearer ${token}` } }
-                );
-                setAccessories(accessoriesResponse.data);
-            } catch (err) {
-                setError('No se pudieron cargar las ubicaciones o accesorios');
-                setShowModal(true);
-            }
-        };
+useEffect(() => {
+    const fetchLocationsAndAccessories = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const locationsResponse = await axios.get(
+                'http://localhost:8080/enum/petLocations',
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            setLocations(locationsResponse.data);
 
-        fetchPetDetails();
+            const accessoriesResponse = await axios.get(
+                'http://localhost:8080/enum/petAccessories',
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            setAccessories(accessoriesResponse.data);
+
+            setDataLoaded(true); // Marcar como datos cargados exitosamente
+        } catch (err) {
+            setError('No se pudieron cargar las ubicaciones o accesorios');
+            setShowModal(true);
+        }
+    };
+
+    if (!dataLoaded) {
         fetchLocationsAndAccessories();
+    }
 
-        const interval = setInterval(fetchPetDetails, 120000);
-        return () => clearInterval(interval);
-    }, [fetchPetDetails]);
+    fetchPetDetails();
+
+    const interval = setInterval(fetchPetDetails, 120000);
+    return () => clearInterval(interval);
+}, [fetchPetDetails, dataLoaded]);
+
+    
 
     return (
         <div>

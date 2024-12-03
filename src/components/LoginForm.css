@@ -1,0 +1,146 @@
+/* LoginForm.css */
+body {
+    font-family: 'Press Start 2P', sans-serif; /* Fuente pixelada */
+    background: linear-gradient(to bottom, #2b1055, #7597de);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+    background: url('/public/assets/backgrounds/login-bg.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.title {
+    font-size: 24px;
+    text-shadow: 2px 2px 0 #000;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 300px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border: 3px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    margin-bottom: 5px;
+}
+
+.form-input {
+    padding: 8px;
+    font-family: 'Press Start 2P', sans-serif;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 14px;
+    border: 2px solid #fff;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+
+    /* Elimina el box-shadow si no es necesario */
+    box-shadow: none;
+}
+.btn:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.btn:active {
+    background-color: #222;
+    transform: translateY(2px);
+    box-shadow: 0 0 #000;
+}
+
+.message {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+    color: #f00;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.toggle-container {
+    margin-top: 15px;
+    text-align: center;
+    border: none; /* Elimina cualquier borde aplicado al contenedor */
+    box-shadow: none; /* Asegúrate de que no hay sombras */
+}
+
+.toggle-btn {
+    margin-top: 10px;
+    font-size: 12px;
+    text-decoration: none; /* Asegúrate de que no hay subrayado */
+    background: none;
+    border: none; /* Elimina cualquier borde */
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Press Start 2P', sans-serif;
+    text-transform: uppercase;
+    text-shadow: none; /* Asegúrate de que no hay sombras */
+    display: inline-block; /* Previene que el botón tome propiedades de otros estilos de bloque */
+    outline: none; /* Previene bordes externos */
+}
+
+.toggle-btn:hover {
+    color: #aaa;
+    text-decoration: none; /* Asegura que no aparezca el subrayado al pasar el mouse */
+}
+
+/* Añadir estilos para el contenedor destacado */
+.highlight-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #222;
+    border: 3px solid #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    animation: glow 1s infinite alternate;
+}
+
+.highlight-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 #000;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+}
+

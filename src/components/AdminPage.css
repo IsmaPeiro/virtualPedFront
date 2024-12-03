@@ -1,0 +1,150 @@
+/* AdminPage.css */
+
+body {
+    font-family: 'Press Start 2P', sans-serif;
+    background: linear-gradient(to bottom, #1e3c72, #2a5298);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.admin-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 #000;
+    color: #e6d600;
+}
+
+.admin-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.admin-section {
+    margin-top: 20px;
+    width: 80%;
+    background: rgba(149, 0, 255, 0.7);
+    padding: 15px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.admin-subtitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.admin-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #fff;
+}
+
+.admin-list-item:last-child {
+    border-bottom: none;
+}
+
+.admin-error {
+    color: #ff4d4d;
+    text-shadow: 1px 1px 0 #000;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 15px;
+    font-family: 'Press Start 2P', sans-serif;
+    border: 2px solid #fff;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+.btn:active {
+    background-color: #222;
+}
+
+.logout-btn {
+    background-color: #a33;
+}
+
+.logout-btn:hover {
+    background-color: #d44;
+}
+
+.small-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.admin-container {
+    background-image: url('/public/assets/backgrounds/adminPage-bg.png');
+    background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+    background-position: center; /* Centra la imagen en el fondo */
+    min-height: 100vh; /* Asegura que el fondo cubra toda la altura de la ventana */
+    /* Otros estilos */
+}
+
+.close-btn {
+    background-color: #d44;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-family: 'Press Start 2P', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+    background-color: #b22;
+}
+
+.admin-pet-info {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre la miniatura y el texto */
+}
+
+.pet-thumbnail {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    object-fit: contain; /* Asegura que la imagen se ajuste al espacio */
+    background-color: #222; /* Fondo en caso de que la imagen no cargue */
+}
+
+

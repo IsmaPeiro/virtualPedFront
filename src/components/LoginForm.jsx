@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { login, register } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';  // Usamos la importación correcta
+import './LoginForm.css'; // Importamos los estilos CSS
 
 const LoginForm = ({ onLoginSuccess }) => {
     const [formData, setFormData] = useState({ nickname: '', password: '' });
@@ -20,32 +21,18 @@ const LoginForm = ({ onLoginSuccess }) => {
         try {
             let response;
             if (isRegistering) {
-                // Si está en modo registro, registramos al usuario
                 response = await register(formData);
                 setMessage('Usuario registrado con éxito. Ahora puedes iniciar sesión.');
-                // Hacer login automáticamente después del registro
                 response = await login(formData);
             } else {
-                // Si está en modo login, intentamos hacer login
                 response = await login(formData);
             }
 
             if (response && response.token) {
-                // Si se recibe el token, lo almacenamos en el localStorage
                 localStorage.setItem('token', response.token);
-
-                // Decodificamos el token para obtener el rol
                 const decodedToken = jwtDecode(response.token);
-
-                // Llamamos a onLoginSuccess y le pasamos el rol junto con el token
                 onLoginSuccess(response.token, decodedToken.role);
-
-                // Redirigimos basado en el rol
-                if (decodedToken.role === 'ADMIN') {
-                    navigate('/admin'); // Redirigir a la página de administración
-                } else {
-                    navigate('/pets'); // Redirigir a la página de mascotas
-                }
+                navigate(decodedToken.role === 'ADMIN' ? '/admin' : '/pets');
             } else {
                 setMessage('Token no recibido.');
             }
@@ -55,42 +42,45 @@ const LoginForm = ({ onLoginSuccess }) => {
     };
 
     return (
-        <div>
-            <h1>{isRegistering ? 'Registro de Usuario' : 'Iniciar Sesión'}</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="nickname">Nickname:</label>
+        <div className="login-container">
+            <h1 className="title">{isRegistering ? 'Registro de Usuario' : 'Iniciar Sesión'}</h1>
+            <form onSubmit={handleSubmit} className="login-form">
+                <div className="form-group">
+                    <label htmlFor="nickname" className="form-label">Nickname:</label>
                     <input
                         type="text"
                         id="nickname"
                         name="nickname"
+                        className="form-input"
                         value={formData.nickname}
                         onChange={handleChange}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="password">Contraseña:</label>
+                <div className="form-group">
+                    <label htmlFor="password" className="form-label">Contraseña:</label>
                     <input
                         type="password"
                         id="password"
                         name="password"
+                        className="form-input"
                         value={formData.password}
                         onChange={handleChange}
                         required
                     />
                 </div>
-                <button type="submit">{isRegistering ? 'Registrar' : 'Iniciar Sesión'}</button>
+                <button type="submit" className="btn submit-btn">
+                    {isRegistering ? 'Registrar' : 'Iniciar Sesión'}
+                </button>
             </form>
-            {message && <p>{message}</p>}
-
-            <div>
+            {message && <p className="message">{message}</p>}
+            <div className="toggle-container">
                 {isRegistering ? (
-                    <button onClick={() => setIsRegistering(false)}>
+                    <button className="toggle-btn" onClick={() => setIsRegistering(false)}>
                         Ya tengo cuenta. Iniciar sesión
                     </button>
                 ) : (
-                    <button onClick={() => setIsRegistering(true)}>
+                    <button className="toggle-btn" onClick={() => setIsRegistering(true)}>
                         ¿No tienes cuenta? Regístrate
                     </button>
                 )}

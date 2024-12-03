@@ -1,0 +1,440 @@
+/* PetsPage.css */
+
+body {
+    font-family: 'Press Start 2P', sans-serif;
+    background: linear-gradient(to bottom, #1e3c72, #2a5298);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.pets-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    background-image: url('/public/assets/backgrounds/petsPage-bg.png'); /* Puedes cambiar esta ruta si es necesario */
+    background-size: contain; /* La imagen cubrirá toda la pantalla */
+    background-position: center; /* Centrar la imagen */
+   
+    background-attachment: fixed; /* Fija el fondo mientras el contenido hace scroll */
+    color: #fff; /* Asegúrate de que el texto sea visible */
+}
+
+.pets-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.error-message {
+    color: #ff4d4d;
+    text-shadow: 1px 1px 0 #000;
+    margin-bottom: 20px;
+}
+
+.new-pet-form {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.form-input, .form-select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: 'Press Start 2P', sans-serif;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+}
+
+.btn {
+    padding: 10px 15px;
+    font-family: 'Press Start 2P', sans-serif;
+    border: 2px solid #fff;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+.btn:active {
+    background-color: #222;
+}
+
+.small-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 5px;
+}
+
+.logout-btn {
+    background-color: #a33;
+    margin-top: 20px;
+}
+
+.logout-btn:hover {
+    background-color: #d44;
+}
+
+.pets-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 800px;
+}
+
+.pet-item {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.pet-details-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.pet-attributes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.pet-attribute {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.pet-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pet-buttons .btn {
+    margin-left: 10px;
+}
+
+.toggle-form-btn {
+    margin: 20px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* Contenedor del formulario */
+.create-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    width: 300px;
+    margin: 20px auto; /* Centrar el formulario horizontalmente */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Título del formulario */
+.create-form h2 {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 15px;
+    text-align: center;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* Estilo de los inputs de texto */
+.create-form input,
+.create-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 12px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    background-color: #222;
+    color: #fff;
+    text-align: center; /* Centrar el texto */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Botón de crear mascota */
+.create-form .create-btn {
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 12px;
+    border: 2px solid #fff;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 2px #000;
+    transition: all 0.2s ease;
+    width: 100%; /* Hacer que el botón ocupe todo el ancho */
+}
+
+.create-form .create-btn:hover {
+    background-color: #555;
+}
+
+.create-form .create-btn:active {
+    background-color: #111;
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* Botón de cerrar formulario */
+.create-form .close-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 12px;
+    border: 2px solid #fff;
+    background-color: #d44;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 2px #000;
+    transition: all 0.2s ease;
+    width: 100%; /* Hacer que el botón ocupe todo el ancho */
+}
+
+.create-form .close-btn:hover {
+    background-color: #f66;
+}
+
+.create-form .close-btn:active {
+    background-color: #b22;
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* Contenedor del formulario */
+.create-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    width: 300px;
+    margin: 20px auto; /* Centrar el formulario horizontalmente */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón de cerrar formulario */
+.close-btn {
+    margin-top: 15px; /* Espaciado respecto al resto */
+    padding: 5px 10px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 10px;
+    border: 2px solid #fff;
+    background-color: #d44;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 2px #000;
+    transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+    background-color: #f66;
+}
+
+.close-btn:active {
+    background-color: #b22;
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+.pets-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+}
+
+.pet-item {
+    width: 250px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+}
+
+.pet-image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.pet-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    background-color: #222;
+}
+
+.pet-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: #333;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background: #555;
+}
+
+.delete-btn {
+    background: #a33;
+}
+
+.delete-btn:hover {
+    background: #d44;
+}
+
+.pets-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+}
+
+
+
+.pet-content {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+
+
+
+.pet-info {
+    flex-grow: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pet-info ul {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.pet-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: #333;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background: #555;
+}
+
+.delete-btn {
+    background: #a33;
+}
+
+.delete-btn:hover {
+    background: #d44;
+}
+
+.pet-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    width: auto; /* Ampliar el contenedor */
+    text-align: left;
+    line-height: 1.5
+}
+
+.pet-image-container {
+    flex-shrink: 0;
+    width: auto; /* Aumentamos el tamaño del contenedor */
+    height: 300px; /* Aseguramos la altura */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-right: 2px solid #fff;
+}
+
+.pet-image {
+    width: 100%; /* Usar todo el ancho del contenedor */
+    height: 100%; /* Usar todo el alto del contenedor */
+    object-fit: contain; /* Asegura que la imagen no se deforme */
+}
+
+
