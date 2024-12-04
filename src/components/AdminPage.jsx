@@ -122,7 +122,10 @@ const AdminPage = () => {
                 <ul className="admin-list">
                     {pets.map(pet => {
                         // Construimos el nombre del archivo basado en el tipo, color y estado de ánimo
-                        const imageFileName = `${pet.type}_${pet.color}_${pet.petMood}.png`.toUpperCase();
+                        const imageFileName =
+    pet.petMood === 'ASLEEP'
+        ? 'ASLEEP.PNG'
+        : `${pet.type}_${pet.color}_${pet.petMood}.png`.toUpperCase();
                         const imageUrl = `/assets/pets/${imageFileName}`;
         
                         return (

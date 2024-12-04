@@ -165,7 +165,10 @@ const PetsPage = () => {
 
 <ul className="pets-list">
     {pets.map((pet) => {
-        const imageFileName = `${pet.type}_${pet.color}_${pet.petMood}.png`.toUpperCase();
+        const imageFileName =
+        pet.petMood === 'ASLEEP'
+            ? 'ASLEEP.PNG'
+            : `${pet.type}_${pet.color}_${pet.petMood}.png`.toUpperCase();
         const imageUrl = `/assets/pets/${imageFileName}`;
 
         return (

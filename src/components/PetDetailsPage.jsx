@@ -84,11 +84,16 @@ const PetDetailsPage = () => {
             {petDetails ? (
                 <div className="petDetails-container">
                     <div className={`petDetails-image-container ${getBackgroundClass()}`}>
-                        <img
-                            src={`/assets/pets/${petDetails.type}_${petDetails.color}_${petDetails.petMood}.png`}
-                            alt={petDetails.petName}
-                            onError={(e) => (e.target.src = '/assets/pets/default.png')}
-                        class="petDetails-image"/>
+                    <img
+    src={
+        petDetails.petMood === 'ASLEEP'
+            ? '/assets/pets/ASLEEP.png'
+            : `/assets/pets/${petDetails.type}_${petDetails.color}_${petDetails.petMood}.png`
+    }
+    alt={petDetails.petName}
+    onError={(e) => (e.target.src = '/assets/pets/default.png')}
+    className="petDetails-image"
+/>
                         {petDetails.accessories &&
     petDetails.accessories.map((accessory) => (
         <img

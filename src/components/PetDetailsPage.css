@@ -9,6 +9,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('/public/assets/backgrounds/PetDetailsPage-bg.png'); /* Puedes cambiar esta ruta si es necesario */
+    background-size: contain; /* La imagen cubrirá toda la pantalla */
+    background-position: center; /* Centrar la imagen */
+    
 }
 
 .petDetails-back-btn {
@@ -23,6 +27,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     text-transform: uppercase;
+    border-radius: 10px;
 }
 
 .petDetails-back-btn:hover {
@@ -40,6 +45,7 @@
     border-radius: 10px;
     border: 3px solid #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    
 }
 
 .petDetails-image-container {
@@ -68,6 +74,7 @@
     padding: 20px;
     overflow-y: auto;
     text-align: left;
+    
 }
 
 .petDetails-stats-container h1 {
@@ -96,22 +103,7 @@
     border-radius: 10px;
     border: 3px solid #fff;
     padding: 20px;
-}
-
-.petDetails-action-btn {
-    padding: 10px;
-    font-size: 14px;
-    border: 2px solid #fff;
-    background-color: #444;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.petDetails-action-btn:hover {
-    background-color: #555;
+    
 }
 
 .petDetails-actions-dropdown {
@@ -147,6 +139,7 @@
     transition: all 0.2s ease;
     text-transform: uppercase;
     text-align: center;
+    border-radius: 10px;
 }
 
 .petDetails-action-btn:hover {
