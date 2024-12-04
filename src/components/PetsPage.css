@@ -26,6 +26,10 @@ body {
     font-size: 24px;
     margin-bottom: 20px;
     text-shadow: 2px 2px 0 #000;
+    background-color: rgba(0, 0, 0, 0.8); 
+    
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .error-message {
@@ -437,4 +441,12 @@ body {
     object-fit: contain; /* Asegura que la imagen no se deforme */
 }
 
+.pets-error {
+    color:red;
+    background-color: rgba(0, 0, 0, 0.8); 
+    
+    padding: 10px;
+    border-radius: 10px;
+
+}
 

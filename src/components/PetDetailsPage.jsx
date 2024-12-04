@@ -47,7 +47,7 @@ const PetDetailsPage = () => {
                 setDataLoaded(true);
             } catch (err) {
                 if (!dataLoaded) {
-                    setError('No se pudieron cargar las ubicaciones o accesorios');
+                    setError('Could not load locations or props');
                     setShowModal(true);
                 }
             }
@@ -79,7 +79,7 @@ const PetDetailsPage = () => {
         <div className="petDetails-page">
             {showModal && <ErrorModal error={error} onClose={() => setShowModal(false)} />}
             <button className="petDetails-back-btn" onClick={() => navigate('/pets')}>
-                Volver a Mis Mascotas
+            Back to My Pets
             </button>
             {petDetails ? (
                 <div className="petDetails-container">
@@ -110,23 +110,23 @@ const PetDetailsPage = () => {
                     </div>
                     <div className="petDetails-actions-container">
                         <button className="petDetails-action-btn" onClick={handleFeedPet}>
-                            Alimentar
+                            Feed
                         </button>
                         <button className="petDetails-action-btn" onClick={handlePlayPet}>
-                            Jugar
+                            Play
                         </button>
                         <button className="petDetails-action-btn" onClick={handlePetPet}>
-                            Acariciar
+                            Pet
                         </button>
                         <button className="petDetails-action-btn" onClick={handleSleepPet}>
-                            Dormir
+                            Sleep
                         </button>
                         <div className="petDetails-actions-dropdown">
                             <select
                                 onChange={(e) => setSelectedLocation(e.target.value)}
                                 value={selectedLocation}
                             >
-                                <option value="">Selecciona una ubicación</option>
+                                <option value="">Select a location</option>
                                 {locations.map((location, index) => (
                                     <option key={index} value={location}>
                                         {location}
@@ -137,13 +137,13 @@ const PetDetailsPage = () => {
                                 className="petDetails-action-btn"
                                 onClick={() => handleChangeLocation(selectedLocation)}
                             >
-                                Cambiar ubicación
+                                Change Location
                             </button>
                             <select
                                 onChange={(e) => setSelectedAccessory(e.target.value)}
                                 value={selectedAccessory}
                             >
-                                <option value="">Selecciona un accesorio</option>
+                                <option value="">Select an accessory</option>
                                 {accessories.map((accessory, index) => (
                                     <option key={index} value={accessory}>
                                         {accessory}
@@ -154,13 +154,13 @@ const PetDetailsPage = () => {
                                 className="petDetails-action-btn"
                                 onClick={() => handleUpdateAccessory(selectedAccessory)}
                             >
-                                Actualizar accesorio
+                                Add/Remove Accessory
                             </button>
                         </div>
                     </div>
                 </div>
             ) : (
-                <p className="petDetails-loading-text">Cargando detalles de la mascota...</p>
+                <p className="petDetails-loading-text">Loading pet details...</p>
             )}
         </div>
     );

@@ -3,7 +3,7 @@ import React from 'react';
 const PetDetails = ({ petDetails }) => {
     return (
         <div>
-            <h1>Detalles de {petDetails.petName}</h1>
+            <h1>Stats:{petDetails.petName}</h1>
             <ul>
                 {Object.entries(petDetails).map(([key, value]) =>
                     key !== 'id' && key !== 'owner' ? (

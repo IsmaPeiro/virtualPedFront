@@ -22,6 +22,10 @@ body {
     font-size: 24px;
     text-shadow: 2px 2px 0 #000;
     margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.6); 
+    
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .login-form {
@@ -86,6 +90,12 @@ body {
     text-align: center;
     color: #f00;
     text-shadow: 1px 1px 0 #000;
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 50%; /* Limita el ancho máximo al 50% del contenedor */
+    margin-left: auto; /* Centra horizontalmente */
+    margin-right: auto; /* Centra horizontalmente */
 }
 
 .toggle-container {
@@ -99,7 +109,6 @@ body {
     margin-top: 10px;
     font-size: 12px;
     text-decoration: none; /* Asegúrate de que no hay subrayado */
-    background: none;
     border: none; /* Elimina cualquier borde */
     color: #fff;
     cursor: pointer;
@@ -108,6 +117,10 @@ body {
     text-shadow: none; /* Asegúrate de que no hay sombras */
     display: inline-block; /* Previene que el botón tome propiedades de otros estilos de bloque */
     outline: none; /* Previene bordes externos */
+    background-color: rgba(0, 0, 0, 0.6); 
+    
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .toggle-btn:hover {

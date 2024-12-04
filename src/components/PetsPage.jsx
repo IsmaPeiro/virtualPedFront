@@ -19,7 +19,7 @@ const PetsPage = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            setError('No se encontró el token de autenticación');
+            setError('Authentication token not found');
             navigate('/');
             return;
         }
@@ -31,7 +31,7 @@ const PetsPage = () => {
                 });
                 setPets(response.data);
             } catch (err) {
-                setError('No se pudieron cargar las mascotas');
+                setError('No pets available. Please create a new pet.');
             }
         };
 
@@ -47,7 +47,7 @@ const PetsPage = () => {
                 });
                 setPetTypes(typeResponse.data);
             } catch (err) {
-                setError('No se pudieron cargar los datos de los enums');
+                setError('Failed to load enum data');
             }
         };
 
@@ -70,14 +70,27 @@ const PetsPage = () => {
                 params: { petName },
                 headers: { Authorization: `Bearer ${token}` },
             });
-            setPets(pets.filter(pet => pet.name !== petName));
+    
+            // Actualizar el estado de mascotas eliminando la mascota
+            const updatedPets = pets.filter(pet => pet.name !== petName);
+            setPets(updatedPets);
+    
+            // Si no quedan mascotas, establece un mensaje de error
+            if (updatedPets.length === 0) {
+                setError('No pets available. Please create a new pet.');
+            } else {
+                setError(''); // Limpia el error si hay mascotas
+            }
         } catch (err) {
-            setError('No se pudo eliminar la mascota');
+            setError('Failed to delete pet');
         }
     };
 
     const handleCreatePet = async () => {
         const token = localStorage.getItem('token');
+        
+        setError('');
+
         try {
             // Primero, realizamos la creación de la mascota
             await axios.post('http://localhost:8080/pet/createPet', newPet.petName, {
@@ -103,32 +116,34 @@ const PetsPage = () => {
 
             // Limpiar el formulario de la nueva mascota
             setNewPet({ petName: '', type: 'BUBBLE_DRAGON', color: 'YELLOW' });
+            
         } catch (err) {
-            setError('No se pudo crear la mascota');
+            setError('Failed to create pet');
             console.error(err);
         }
+        
     };
 
     return (
         <div className="pets-container">
             <div className="logout-container">
-                <button className="btn logout-btn" onClick={handleLogout}>Cerrar sesión</button>
+                <button className="btn logout-btn" onClick={handleLogout}>Log out</button>
             </div>
-            <h1 className="pets-title">Mis Mascotas</h1>
+            <h1 className="pets-title">My Pets</h1>
             {error && <p className="pets-error">{error}</p>}
             
             <div className="create-section">
     {!showCreateForm && (
         <button className="pet-buttons btn" onClick={() => setShowCreateForm(true)}>
-            Crear nueva mascota
+            Create new pet
         </button>
     )}
     {showCreateForm && (
         <div className="create-form">
-            <h2>Agregar una nueva mascota</h2>
+            <h2>Add a new pet</h2>
             <input
                 type="text"
-                placeholder="Nombre de la mascota"
+                placeholder="Pet name"
                 value={newPet.petName}
                 onChange={(e) => setNewPet({ ...newPet, petName: e.target.value })}
             />
@@ -152,11 +167,17 @@ const PetsPage = () => {
                     </option>
                 ))}
             </select>
-            <button className="btn create-btn" onClick={handleCreatePet}>
-                Crear Mascota
-            </button>
+            <button
+    className="btn create-btn"
+    onClick={() => {
+        handleCreatePet();
+        setShowCreateForm(false);
+    }}
+>
+    Create Pet
+</button>
             <button className="btn close-btn" onClick={() => setShowCreateForm(false)}>
-                Cerrar formulario
+                Close
             </button>
         </div>
     )}
@@ -187,7 +208,7 @@ const PetsPage = () => {
                     </div>
                     {/* Información de la mascota */}
                     <div className="pet-info">
-                        <strong>Detalles de la mascota:</strong>
+                        <strong>Stats:</strong>
                         <ul>
                             {Object.entries(pet).map(([key, value]) =>
                                 key !== 'id' && key !== 'owner' ? (
@@ -203,13 +224,13 @@ const PetsPage = () => {
                                 className="btn details-btn"
                                 onClick={() => navigate(`/pet-details/${pet.name}`)}
                             >
-                                Ver Detalles
+                                See Details
                             </button>
                             <button
                                 className="btn delete-btn"
                                 onClick={() => handleDeletePet(pet.name)}
                             >
-                                Eliminar
+                                Remove
                             </button>
                         </div>
                     </div>

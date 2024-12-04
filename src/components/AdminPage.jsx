@@ -15,7 +15,7 @@ const AdminPage = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            setError('No se encontró el token de autenticación');
+            setError('Authentication token not found');
             navigate('/'); // Redirigir al login si no hay token
             return;
         }
@@ -23,11 +23,11 @@ const AdminPage = () => {
         try {
             const decodedToken = jwtDecode(token);
             if (decodedToken.role !== 'ADMIN') {
-                setError('No tiene permisos de administrador');
+                setError('You do not have administrator permissions');
                 navigate('/pets');
             }
         } catch (err) {
-            setError('Token inválido');
+            setError('Invalid token');
             navigate('/');
         }
     }, [navigate]);
@@ -42,7 +42,7 @@ const AdminPage = () => {
             setUsers(filteredUsers);
             setShowUsers(true); // Mostrar usuarios
         } catch (err) {
-            setError('No se pudieron cargar los usuarios');
+            setError('Failed to load users');
         }
     };
 
@@ -55,7 +55,7 @@ const AdminPage = () => {
             setPets(response.data);
             setShowPets(true); // Mostrar mascotas
         } catch (err) {
-            setError('No se pudieron cargar las mascotas');
+            setError('Failed to load pets');
         }
     };
 
@@ -67,7 +67,7 @@ const AdminPage = () => {
             });
             setUsers(users.filter(user => user.nickname !== nickname));
         } catch (err) {
-            setError('No se pudo eliminar el usuario');
+            setError('Failed to delete user');
         }
     };
 
@@ -80,7 +80,7 @@ const AdminPage = () => {
             });
             setPets(pets.filter(pet => pet.name !== petName));
         } catch (err) {
-            setError('No se pudo eliminar la mascota');
+            setError('Failed to delete pet');
         }
     };
 
@@ -95,20 +95,20 @@ const AdminPage = () => {
             {error && <p className="admin-error">{error}</p>}
 
             <div className="admin-buttons">
-                <button className="btn" onClick={fetchAllUsers} disabled={showUsers}>Ver todos los usuarios</button>
-                <button className="btn" onClick={fetchAllPets} disabled={showPets}>Ver todas las mascotas</button>
-                <button className="btn" onClick={handleLogout}>Cerrar sesión</button>
+                <button className="btn" onClick={fetchAllUsers} disabled={showUsers}>View all users</button>
+                <button className="btn" onClick={fetchAllPets} disabled={showPets}>View all pets</button>
+                <button className="btn" onClick={handleLogout}>Log out</button>
             </div>
 
             {showUsers && (
                 <div className="admin-section">
-                    <h2 className="admin-subtitle">Usuarios</h2>
-                    <button className="btn close-btn" onClick={() => setShowUsers(false)}>Cerrar usuarios</button>
+                    <h2 className="admin-subtitle">Users</h2>
+                    <button className="btn close-btn" onClick={() => setShowUsers(false)}>Close</button>
                     <ul className="admin-list">
                         {users.map(user => (
                             <li key={user.nickname} className="admin-list-item">
                                 {user.nickname}
-                                <button className="btn small-btn" onClick={() => handleDeleteUser(user.nickname)}>Eliminar</button>
+                                <button className="btn small-btn" onClick={() => handleDeleteUser(user.nickname)}>Remove</button>
                             </li>
                         ))}
                     </ul>
@@ -117,8 +117,8 @@ const AdminPage = () => {
 
             {showPets && (
                 <div className="admin-section">
-                <h2 className="admin-subtitle">Mascotas</h2>
-                <button className="btn close-btn" onClick={() => setShowPets(false)}>Cerrar mascotas</button>
+                <h2 className="admin-subtitle">Pets</h2>
+                <button className="btn close-btn" onClick={() => setShowPets(false)}>Close</button>
                 <ul className="admin-list">
                     {pets.map(pet => {
                         // Construimos el nombre del archivo basado en el tipo, color y estado de ánimo
@@ -139,9 +139,9 @@ const AdminPage = () => {
                                             e.target.src = '/assets/pets/default.png'; // Imagen de respaldo
                                         }}
                                     />
-                                    <span>{pet.name} (Propietario: {pet.owner})</span>
+                                    <span>{pet.name} (Owner: {pet.owner})</span>
                                 </div>
-                                <button className="btn small-btn" onClick={() => handleDeletePet(pet.owner, pet.name)}>Eliminar</button>
+                                <button className="btn small-btn" onClick={() => handleDeletePet(pet.owner, pet.name)}>Remove</button>
                             </li>
                         );
                     })}
