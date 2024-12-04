@@ -1,0 +1,306 @@
+/* PetDetailsPage.css */
+
+.petDetails-page {
+    font-family: 'Press Start 2P', sans-serif;
+    background: linear-gradient(to bottom, #1e3c72, #2a5298);
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.petDetails-back-btn {
+    
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', sans-serif; /* Asegura la fuente consistente */
+    font-size: 14px;
+    border: 2px solid #fff;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.petDetails-back-btn:hover {
+    background-color: #555;
+}
+
+.petDetails-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr; /* Tres columnas para imagen, estadísticas y acciones */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.petDetails-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: last baseline;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    border: 3px solid #fff;
+    overflow: hidden;
+}
+
+.petDetails-image-container img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+
+.petDetails-stats-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 3px solid #fff;
+    padding: 20px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.petDetails-stats-container h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.petDetails-stats-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.petDetails-stats-container li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.petDetails-actions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.petDetails-action-btn {
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #fff;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.petDetails-action-btn:hover {
+    background-color: #555;
+}
+
+.petDetails-actions-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.petDetails-actions-dropdown select {
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #fff;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+.petDetails-loading-text {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 50px;
+    color: #fff;
+}
+
+.petDetails-action-btn {
+    padding: 10px;
+    font-size: 14px;
+    font-family: 'Press Start 2P', sans-serif; /* Asegura la fuente consistente */
+    border: 2px solid #fff;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.petDetails-action-btn:hover {
+    background-color: #555;
+}
+
+.petDetails-actions-dropdown select {
+    padding: 10px;
+    font-size: 14px;
+    font-family: 'Press Start 2P', sans-serif; /* Asegura la fuente consistente */
+    border: 2px solid #fff;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+.petDetails-background-home {
+    background-image: url('/public/assets/locations/home.png');
+    background-size: cover;
+    background-position: bottom;    
+}
+
+.petDetails-background-park {
+    background-image: url('/public/assets/locations/park.png');
+    background-size: cover;
+    background-position: bottom;
+}
+
+.petDetails-background-vet {
+    background-image: url('/public/assets/locations/vet.png');
+    background-size: cover;
+    background-position: bottom;
+}
+
+
+.petDetails-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: last baseline;
+    position: relative; /* Necesario para usar ::before */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    border: 3px solid #fff;
+    overflow: hidden;
+}
+
+.petDetails-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    opacity: 0.6; /* Cambia este valor para ajustar la opacidad */
+    z-index: 1; /* Mantiene el fondo detrás de la mascota */
+}
+
+.petDetails-background-home::before {
+    background-image: url('/public/assets/locations/home.png');
+}
+
+.petDetails-background-park::before {
+    background-image: url('/public/assets/locations/park.png');
+}
+
+.petDetails-background-vet::before {
+    background-image: url('/public/assets/locations/vet.png');
+}
+
+.petDetails-image-container {
+    position: relative; /* Contenedor relativo para las capas de accesorios */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    border: 3px solid #fff;
+    overflow: hidden;
+}
+
+.petDetails-image {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 5px;
+    position: relative;
+    z-index: 1; /* Mantén la mascota en la capa base */
+}
+
+.accessory {
+    position: absolute; /* Asegura que los accesorios estén en posiciones fijas */
+    z-index: 2; /* Asegura que los accesorios estén encima de la mascota */
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+    pointer-events: none; /* Opcional: evita que los accesorios interfieran con los clics */
+}
+
+/* Posiciona los accesorios */
+.petDetails-accessory-hat-penguin {
+    top: -10%; /* Ajusta la posición del sombrero */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.petDetails-accessory-ball-penguin {
+    bottom: -5%;
+    left: -5%;
+    width: 70%;
+}
+
+.petDetails-accessory-arcade-penguin {
+    bottom: -5%;
+    right: -5%;
+    width: 70%;
+}
+
+.petDetails-accessory-hat-bubble_dragon {
+    top: -5%; /* Ajusta la posición del sombrero */
+    left: 60%;
+    transform: translateX(-50%);
+}
+
+.petDetails-accessory-ball-bubble_dragon {
+    bottom: -5%;
+    left: -5%;
+    width: 70%;
+}
+
+.petDetails-accessory-arcade-bubble_dragon {
+    bottom: -5%;
+    right: -5%;
+    width: 70%;
+}
+
+.petDetails-accessory-hat-ghost {
+    top: -5%; /* Ajusta la posición del sombrero */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.petDetails-accessory-ball-ghost {
+    bottom: -5%;
+    left: -5%;
+    width: 70%;
+}
+
+.petDetails-accessory-arcade-ghost {
+    bottom: -5%;
+    right: -5%;
+    width: 70%;
+}
