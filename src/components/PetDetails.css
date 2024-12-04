@@ -1,0 +1,19 @@
+/* Contenedor de la barra de progreso */
+.progress-bar {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    height: 20px;
+    margin-top: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Relleno de la barra de progreso */
+.progress-bar-fill {
+    height: 100%;
+    background-color: #4caf50; /* Color de la barra */
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}

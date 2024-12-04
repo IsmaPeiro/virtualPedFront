@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './PetsPage.css'; // Importamos los estilos CSS
+import PetDetails from './PetDetails'; // Importamos el componente PetDetails
 
 const PetsPage = () => {
     const [pets, setPets] = useState([]);
@@ -207,24 +208,16 @@ const PetsPage = () => {
                         />
                     </div>
                     {/* Información de la mascota */}
-                    <div className="pet-info">
-                        <strong>Stats:</strong>
-                        <ul>
-                            {Object.entries(pet).map(([key, value]) =>
-                                key !== 'id' && key !== 'owner' ? (
-                                    <li key={key}>
-                                        <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong>{' '}
-                                        {Array.isArray(value) ? value.join(', ') : value}
-                                    </li>
-                                ) : null
-                            )}
+                    <div className="pet-info">                        
+                        <ul className='petsPage-stats-container'>
+                        <PetDetails petDetails={pet} className/>
                         </ul>
                         <div className="pet-buttons">
                             <button
                                 className="btn details-btn"
                                 onClick={() => navigate(`/pet-details/${pet.name}`)}
                             >
-                                See Details
+                                Select Pet
                             </button>
                             <button
                                 className="btn delete-btn"
