@@ -91,7 +91,7 @@ const AdminPage = () => {
 
     return (
         <div className="admin-container">
-            <h1 className="admin-title">Página de Administración</h1>
+            <h1 className="admin-title">Admin Page</h1>
             {error && <p className="admin-error">{error}</p>}
 
             <div className="admin-buttons">
